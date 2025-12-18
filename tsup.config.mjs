@@ -8,7 +8,6 @@ export default defineConfig({
     format: ["cjs","esm"],
     target: "esnext",
     platform: "neutral",
-    noExternal: Object.keys(Metadata?.dependencies ?? []),
     define: {
         PKG_NAME: JSON.stringify(Metadata.name),
         PKG_VERSION: JSON.stringify(Metadata.version)

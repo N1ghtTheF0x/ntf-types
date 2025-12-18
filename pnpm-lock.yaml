@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@ntf/buffer':
-        specifier: latest
-        version: 1.2.0
     devDependencies:
       '@types/node':
         specifier: latest
@@ -202,9 +198,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.29':
     resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
-
-  '@ntf/buffer@1.2.0':
-    resolution: {integrity: sha512-qKYuaxO2pP4f680csmivvGtmlgL574Gfv7oGrAijD0PE3SGnpQ4vsa/008NfSYWzGQiSAoiZo8igamW+chzTog==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1020,8 +1013,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.4
-
-  '@ntf/buffer@1.2.0': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true

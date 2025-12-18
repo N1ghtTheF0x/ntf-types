@@ -1,6 +1,6 @@
-# @ntf/<NAME>
+# @ntf/types
 
-Another <NAME> library
+Another types library
 
 ## Why
 
@@ -11,15 +11,15 @@ Because I like reinventing the wheel :)
 Use your favourite package manager, idk
 
 ```sh
-npm install @ntf/<NAME>
+npm install @ntf/types
 ```
 
 ```sh
-yarn add @ntf/<NAME>
+yarn add @ntf/types
 ```
 
 ```sh
-pnpm install @ntf/<NAME>
+pnpm install @ntf/types
 ```
 
 ## Usage
@@ -29,13 +29,13 @@ pnpm install @ntf/<NAME>
 This library can be used in `CommonJS` and `ESModule` environments
 
 ```typescript
-const { ... } = require("@ntf/<NAME>");
+const { ... } = require("@ntf/types");
 ```
 
 ```typescript
-import { ... } from "@ntf/<NAME>";
+import { ... } from "@ntf/types";
 ```
 
 ## License stuff that nobody reads
 
-Just like any [Open Source Project](https://github.com/N1ghtTheF0x/ntf-<NAME>) this has a [License](./LICENSE), the MIT License
+Just like any [Open Source Project](https://github.com/N1ghtTheF0x/ntf-types) this has a [License](./LICENSE), the MIT License

@@ -1,7 +1,7 @@
 {
-  "name": "@ntf/<NAME>",
+  "name": "@ntf/types",
   "version": "0.0.0",
-  "description": "Another <NAME> library",
+  "description": "Another types library",
   "files": [
     "dist"
   ],
@@ -19,15 +19,17 @@
     }
   },
   "scripts": {
-    "pretest": "pnpm run build",
-    "test": "tsx --tsconfig ./tests/nodejs/tsconfig.json ./tests/nodejs/test.cts",
+    "pretest": "pnpm build",
+    "test": "tsx --tsconfig ./tests/nodejs/tsconfig.json ./tests/nodejs/test.ts",
+    "check": "tsc --noEmit",
+    "prebuild": "pnpm check",
+    "build": "pnpm build:prod --sourcemap",
     "build:prod": "tsup",
-    "build": "pnpm run build:prod --sourcemap",
-    "prepublishOnly": "npm run build:prod"
+    "prepublishOnly": "pnpm build:prod"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/N1ghtTheF0x/ntf-<NAME>.git"
+    "url": "git+https://github.com/N1ghtTheF0x/ntf-types.git"
   },
   "keywords": [
     "esm",
@@ -38,9 +40,9 @@
   "author": "N1ghtTheF0x",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/N1ghtTheF0x/ntf-<NAME>/issues"
+    "url": "https://github.com/N1ghtTheF0x/ntf-types/issues"
   },
-  "homepage": "https://github.com/N1ghtTheF0x/ntf-<NAME>#readme",
+  "homepage": "https://github.com/N1ghtTheF0x/ntf-types#readme",
   "devDependencies": {
     "@types/node": "latest",
     "express": "latest",
@@ -48,5 +50,5 @@
     "tsx": "latest",
     "typescript": "latest"
   },
-  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
+  "packageManager": "pnpm@10.26.0"
 }
