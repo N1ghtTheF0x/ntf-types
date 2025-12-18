@@ -1,10 +1,10 @@
 {
     "extends": "../../tsconfig.json",
-    "files": ["test.cts"],
+    "files": ["test.ts"],
     "include": ["../../dist"],
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "Node",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
         "types": ["node"]
     }
 }
