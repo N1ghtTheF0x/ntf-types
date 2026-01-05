@@ -6,7 +6,14 @@ import { ExpectedTypeError } from "./error"
  * @template ReturnType The type that the function should return at the end
  * @template This The type that was passed during a bind or method call of a class
  */
-export type Function<Args extends Array<any> = Array<any>,ReturnType = void,This = void> = (this: This,...args: Args) => ReturnType
+export type Function<Args extends Array<any> = Array<any>,ReturnType = any,This = any> = (this: This,...args: Args) => ReturnType
+/**
+ * a typed async function
+ * @template Args The arguments the function expects to be called with
+ * @template ReturnType The type that the function should return at the end. It will always be a promise
+ * @template This The type that was passed during a bind or method call of a class
+ */
+export type AsyncFunction<Args extends Array<any> = Array<any>,ReturnType = any,This = any> = Function<Args,Promise<ReturnType>,This>
 /**
  * A typed function that compares `A` and `B`
  * @template A Any kind of type
