@@ -1,3 +1,4 @@
+import { AbstractClassConstructor } from "./class"
 import { ExpectedTypeError } from "./error"
 import { Compare } from "./function"
 
@@ -29,6 +30,20 @@ export namespace NodeJSCustomInspect
      * The inspect function signature from `node:util`
      */
     export type Inspect = (object: unknown,options?: IOptions) => string
+    /**
+     * The value type of `object[NodeJSCustomInspect]`
+     */
+    export type Type<This = any> = (this: This,depth: number,options: IOptions,inspect: Inspect) => string
+}
+
+/**
+ * Assign `value` a custom inspect method for NodeJS runtimes
+ * @param Class A value
+ * @param inspect The custom inspect method
+ */
+export function setNodeJSCustomInspect<T>(Class: AbstractClassConstructor<Array<any>,T>,inspect: NodeJSCustomInspect.Type<T>): void
+{
+    Object.defineProperty(Class.prototype,NodeJSCustomInspect,{value: inspect})
 }
 
 /**
