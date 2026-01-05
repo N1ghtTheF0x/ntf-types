@@ -1,5 +1,6 @@
 import { ExpectedTypeError } from "./error"
-import { Typeof, TypeofKey } from "./typeof"
+import { isNotNullLike } from "./null"
+import { isAnyTypeof, Typeof, TypeofKey } from "./typeof"
 
 /**
  * Check if `value` is an object
@@ -15,16 +16,16 @@ export function checkObject(value: unknown): void
 }
 
 /**
- * Is `value` an valid object. Valid means it's not `null`
+ * Is `value` an valid object. Valid means it's not `null` or `undefined`
  * @param value A value
  */
 export function isValidObject(value: unknown): value is object
 {
-    return value !== null && typeof value == "object"
+    return isNotNullLike(value) && typeof value == "object"
 }
 
 /**
- * Check if `value` is an valid object. Valid means it's not `null`
+ * Check if `value` is an valid object. Valid means it's not `null` or `undefined`
  * @param value A value
  * @throws {ExpectedTypeError} The value should be an valid object
  */
@@ -37,27 +38,53 @@ export function checkValidObject(value: unknown): void
 }
 
 /**
+ * Has `value` a property called `property`?
+ * @param value A value
+ * @param property The name of the property
+ */
+export function hasProperty<V,K extends PropertyKey>(value: V,property: K): value is V & Record<K,unknown>
+{
+    return isNotNullLike(value) && isAnyTypeof(value,"function","object") && property in value
+}
+
+/**
  * Has `value` a property called `property` as `type`?
  * @param value A value
  * @param property The name of the property
- * @param type The type of the property
+ * @param types The type(s) of the property
  */
-export function hasObjectProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,type: T): value is V & Record<K,Typeof[T]>
+export function hasTypedProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,...types: Array<T>): value is V & Record<K,Typeof[T]>
+export function hasTypedProperty<V,K extends PropertyKey>(value: V,property: K): false
+export function hasTypedProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,...types: Array<T>): value is V & Record<K,Typeof[T]>
 {
-    return isValidObject(value) && property in value && typeof (value as any)[property] == type
+    return hasProperty(value,property) && types.length > 0 && types.reduce((result,type) => result || typeof (value as any)[property] == type,true)
+}
+
+/**
+ * Check if `value` has a property called `property`
+ * @param value A value
+ * @param property The name of the property
+ * @throws {ExpectedTypeError} The value should have a property called `property`
+ */
+export function checkProperty<V,K extends PropertyKey>(value: V,property: K): void
+export function checkProperty(value: unknown,property: PropertyKey): never
+export function checkProperty<V,K extends PropertyKey>(value: V,property: K): void
+{
+    if(!hasProperty(value,property))
+        throw new ExpectedTypeError(`object with a property '${String(property)}'`,value)
 }
 
 /**
  * Check if `value` has a property called `property` as `type`
  * @param value A value
  * @param property The name of the property
- * @param type The type of the property
+ * @param types The type(s) of the property
  * @throws {ExpectedTypeError} The value should have a property called `property` as `type`
  */
-export function checkObjectProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,type: T): void
-export function checkObjectProperty(value: unknown,property: PropertyKey,type: TypeofKey): never
-export function checkObjectProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,type: T): void
+export function checkTypedProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,...types: Array<T>): void
+export function checkTypedProperty(value: unknown,property: PropertyKey,...types: Array<TypeofKey>): never
+export function checkTypedProperty<V,K extends PropertyKey,T extends TypeofKey>(value: V,property: K,...types: Array<T>): void
 {
-    if(!hasObjectProperty(value,property,type))
-        throw new ExpectedTypeError(`object with a property '${String(property)}' as a ${type}`,value)
+    if(!hasTypedProperty(value,property,...types))
+        throw new ExpectedTypeError(`object with a property '${String(property)}' as ${types.map(type => `'${type}'`).join(" or ")}`,value)
 }
