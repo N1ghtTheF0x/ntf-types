@@ -100,3 +100,12 @@ export function checkFixedTypeArray<T>(value: unknown,predicate: Predicate<T>,le
     if(!isFixedTypeArray(value,predicate,length))
         throw new ExpectedTypeError(`type array with a length of ${length}`,value)
 }
+
+/**
+ * Get a random item from the array
+ * @param array A array
+ */
+export function randomArrayItem<T>(array: Array<T>): T | undefined
+{
+    return array[Math.random() * array.length | 0]
+}
